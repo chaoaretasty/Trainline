@@ -32,6 +32,7 @@ obj/
 Ankh.NoLoad
 
 #Tooling
+.vs/
 _ReSharper*/
 *.resharper
 [Tt]est[Rr]esult*
