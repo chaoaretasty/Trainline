@@ -3,17 +3,19 @@ using System.IO;
 
 namespace AddressProcessing.CSV
 {
-    /*
+	/*
         1) List three to five key concerns with this implementation that you would discuss with the junior developer. 
 
         Please leave the rest of this file as it is so we can discuss your concerns during the next stage of the interview process.
         
-        *)
-        *)
-        *)
+        *) This class should implement IDisposable, this is true of any classes that depend on disposable resources
+        *) Mode is set as a flag enumerable implying that it is possible to open a file as read/write which is obviously not the case in this implementation
+        *) The Read methods are both problematic, the one out using out params is actually a TryRead pattern while the other does not work because strings are value type and not being returned
+		*) Overly verbose code that can be made a lot simpler with more modern C# features
+		*) Breaks single responsibility in that it handles both read and write (there are arguments that it is reasonable in this case but I'm accepting an amount of contrivedness for the assignment)
     */
 
-    public class CSVReaderWriterForAnnotation
+	public class CSVReaderWriterForAnnotation
     {
         private StreamReader _readerStream = null;
         private StreamWriter _writerStream = null;
