@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AddressProcessing.CSV
 {
-	public class DelimitedWriter
+	public class DelimitedWriter : IDisposable
 	{
 		private readonly char _separator;
 		private readonly StreamWriter _streamWriter;
@@ -20,6 +20,11 @@ namespace AddressProcessing.CSV
 			var fileInfo = new FileInfo(path);
 			_streamWriter = append ? fileInfo.AppendText() : fileInfo.CreateText();
 			_separator = separator;
+		}
+
+		public void Dispose()
+		{
+			_streamWriter.Dispose();
 		}
 
 		public void Write(params string[] columns) => Write(columns.AsEnumerable());
