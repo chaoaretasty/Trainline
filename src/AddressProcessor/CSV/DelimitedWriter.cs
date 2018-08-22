@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AddressProcessing.CSV
 {
-	public class DelimitedWriter : IDisposable
+	public class DelimitedWriter : IDelimitedWriter
 	{
 		private readonly char _separator;
 		private readonly StreamWriter _streamWriter;
@@ -21,15 +19,8 @@ namespace AddressProcessing.CSV
 			_separator = separator;
 		}
 
-		public void Dispose()
-		{
-			_streamWriter.Dispose();
-		}
-
+		public void Dispose() => _streamWriter.Dispose();
 		public void Write(params string[] columns) => Write(columns.AsEnumerable());
-		public void Write(IEnumerable<string> columns)
-		{
-			_streamWriter.WriteLine(String.Join(_separator.ToString(), columns));
-		}
+		public void Write(IEnumerable<string> columns) => _streamWriter.WriteLine(String.Join(_separator.ToString(), columns));
 	}
 }

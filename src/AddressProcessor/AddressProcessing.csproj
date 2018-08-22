@@ -59,6 +59,8 @@
     <Compile Include="CSV\CSVReaderWriter.cs" />
     <Compile Include="CSV\DelimitedReader.cs" />
     <Compile Include="CSV\DelimitedWriter.cs" />
+    <Compile Include="CSV\IDelimitedReader.cs" />
+    <Compile Include="CSV\IDelimitedWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Address\v1\IMailShot.cs" />
     <Compile Include="Address\v2\IMailShot.cs" />
