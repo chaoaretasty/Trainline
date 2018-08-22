@@ -17,7 +17,6 @@ namespace Csv.Tests
 		/* I'm not familiar with NUnit as I've previously used XUnit so apologies if there are better ways of doing some things than I've managed here */
 
 		private const string TestInputFileBlank = @"test_data\contacts.csv";
-		private const string TestInputFileNoBlank = @"test_data\contacts_noblank.csv";
 		private const string TestInputFileGap = @"test_data\contacts_gap.csv";
 		private const string TestInputFileOneCol = @"test_data\contacts_onecol.csv";
 		private const string TestOutputFile = @"test_data\output.csv";
@@ -106,14 +105,6 @@ namespace Csv.Tests
 		}
 
 		[Test]
-		public void Read_Lines_WithOut_NoBlankEnd()
-		{
-			var result = CountLines(TestInputFileNoBlank, true);
-			Assert.That(result.Item1, Is.EqualTo(229));
-			Assert.That(result.Item2, Is.Null);
-		}
-
-		[Test]
 		public void Read_Lines_WithNoOut_WithGap()
 		{
 			var result = CountLines(TestInputFileGap, false);
@@ -135,15 +126,6 @@ namespace Csv.Tests
 		public void Read_Lines_WithNoOut_BlankEnd()
 		{
 			var result = CountLines(TestInputFileBlank, false);
-
-			Assert.That(result.Item1, Is.EqualTo(229));
-			Assert.That(result.Item2, Is.TypeOf<NullReferenceException>());
-		}
-
-		[Test]
-		public void Read_Lines_WithNoOut_NoBlankEnd()
-		{
-			var result = CountLines(TestInputFileNoBlank, false);
 
 			Assert.That(result.Item1, Is.EqualTo(229));
 			Assert.That(result.Item2, Is.TypeOf<NullReferenceException>());
