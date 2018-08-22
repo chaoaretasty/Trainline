@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressFileProcessorTests.cs" />
+    <Compile Include="CSV\DelimitedWriterTests.cs" />
     <Compile Include="CSV\CSVReaderWriterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
