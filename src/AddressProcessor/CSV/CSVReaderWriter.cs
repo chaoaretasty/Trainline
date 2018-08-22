@@ -6,9 +6,10 @@ namespace AddressProcessing.CSV
     /*
         2) Refactor this class into clean, elegant, rock-solid & well performing code, without over-engineering.
            Assume this code is in production and backwards compatibility must be maintained.
+		   
     */
 
-    public class CSVReaderWriter
+    public class CSVReaderWriter : IDisposable
     {
         private StreamReader _readerStream = null;
         private StreamWriter _writerStream = null;
@@ -128,15 +129,13 @@ namespace AddressProcessing.CSV
 
         public void Close()
         {
-            if (_writerStream != null)
-            {
-                _writerStream.Close();
-            }
-
-            if (_readerStream != null)
-            {
-                _readerStream.Close();
-            }
+			Dispose();
         }
-    }
+
+		public void Dispose()
+		{
+			_readerStream?.Dispose();
+			_writerStream?.Dispose();
+		}
+	}
 }
