@@ -14,17 +14,29 @@ namespace Csv.Tests
 		private const string TestInputFileOneCol = @"test_data\contacts_onecol.csv";
 
 		[Test]
-		public void Read_WithOut_Split()
+		public void Reader_WithOut_Split()
 		{
-			var csvReader = new CSVReaderWriter();
-			string string1 = null;
-			string string2 = null;
-			csvReader.Open(TestInputFileBlank, CSVReaderWriter.Mode.Read);
+			IEnumerable<String> strings = null;
+			bool success = false;
+			using (var reader = new DelimitedReader(TestInputFileBlank))
+			{
+				success = reader.TryRead(out strings);
+			}
 
-			csvReader.Read(out string1, out string2);
-			csvReader.Close();
-			Assert.That(string1, Is.EqualTo("Shelby Macias"));
-			Assert.That(string2, Is.EqualTo("3027 Lorem St.|Kokomo|Hertfordshire|L9T 3D5|England"));
+			Assert.That(strings, Is.EquivalentTo( new[] { "Shelby Macias", "3027 Lorem St.|Kokomo|Hertfordshire|L9T 3D5|England", "1 66 890 3865-9584", "et@eratvolutpat.ca" }));
+			Assert.That(success, Is.True);
+		}
+
+		[Test]
+		public void Reader_ReturnVal_Split()
+		{
+			IEnumerable<String> strings = null;
+			using (var reader = new DelimitedReader(TestInputFileBlank))
+			{
+				strings = reader.Read();
+			}
+
+			Assert.That(strings, Is.EquivalentTo(new[] { "Shelby Macias", "3027 Lorem St.|Kokomo|Hertfordshire|L9T 3D5|England", "1 66 890 3865-9584", "et@eratvolutpat.ca" }));
 		}
 
 		/* Testing the same file conditions as readerwriter but this should not include bugs */
@@ -54,9 +66,9 @@ namespace Csv.Tests
 			var toGapOutVal = CountLines(TestInputFileBlank, true, true);
 
 			Assert.That(new[] { toEndReturnVal.Item2, toGapReturnVal.Item2, toEndOutVal.Item2, toGapOutVal.Item2 }, Is.EquivalentTo(new object[] { null, null, null, null }));
-			Assert.That(toEndReturnVal.Item1, Is.EqualTo(230));
+			Assert.That(toEndReturnVal.Item1, Is.EqualTo(229));
 			Assert.That(toGapReturnVal.Item1, Is.EqualTo(229));
-			Assert.That(toEndOutVal.Item1, Is.EqualTo(230));
+			Assert.That(toEndOutVal.Item1, Is.EqualTo(229));
 			Assert.That(toGapOutVal.Item1, Is.EqualTo(229));
 		}
 
