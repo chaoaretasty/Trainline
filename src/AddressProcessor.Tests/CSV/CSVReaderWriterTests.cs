@@ -53,10 +53,28 @@ namespace Csv.Tests
 			string string2 = null;
 			csvReader.Open(TestInputFileBlank, CSVReaderWriter.Mode.Read);
 
-			csvReader.Read(out string1, out string2);
+			var output = csvReader.Read(out string1, out string2);
 			csvReader.Close();
+			Assert.That(output, Is.True);
 			Assert.That(string1, Is.EqualTo("Shelby Macias"));
 			Assert.That(string2, Is.EqualTo("3027 Lorem St.|Kokomo|Hertfordshire|L9T 3D5|England"));
+		}
+
+		[Test]
+		public void Read_WithNoOut_Split()
+		{
+			var csvReader = new CSVReaderWriter();
+			string string1 = null;
+			string string2 = null;
+
+			csvReader.Open(TestInputFileBlank, CSVReaderWriter.Mode.Read);
+
+			var output = csvReader.Read(string1, string2);
+			
+			Assert.That(output, Is.True);
+			Assert.That(string1, Is.Null);
+			Assert.That(string2, Is.Null);
+
 		}
 
 		/* As this is in production and needs to be backwards compatible we need to ensure that existing bugs are replicated */
@@ -159,26 +177,6 @@ namespace Csv.Tests
 		}
 		
 		#endregion
-
-		[Test]
-		public void Read_WithOut_EmptyLine()
-		{
-			var csvReader = new CSVReaderWriter();
-			string string1 = null;
-			string string2 = null;
-
-			csvReader.Open(TestInputFileBlank, CSVReaderWriter.Mode.Read);
-			int lineCount = 0;
-
-			while (csvReader.Read(out string1, out string2))
-			{
-				lineCount++;
-			}
-
-			csvReader.Close();
-
-			Assert.That(lineCount, Is.EqualTo(229));
-		}
 
 		[Test]
 		public void Write_NewFile()
