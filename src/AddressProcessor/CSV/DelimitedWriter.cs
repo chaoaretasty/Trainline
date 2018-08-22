@@ -11,7 +11,6 @@ namespace AddressProcessing.CSV
 	{
 		private readonly char _separator;
 		private readonly StreamWriter _streamWriter;
-		private readonly bool _endOnEmptyLine;
 
 		public DelimitedWriter(string path) : this(path, false) { }
 		public DelimitedWriter(string path, bool append) : this(path, append, '\t') { }
